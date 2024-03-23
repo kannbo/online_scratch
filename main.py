@@ -67,4 +67,4 @@ def requ_3(key):
                 return "delete"
         except:
                 return "not delete"
-run(host='localhost', port=8080, debug=True)
+run(host='0.0.0.0', port=10000, debug=True)
