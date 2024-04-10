@@ -20,7 +20,7 @@ def do_login():
     uuid4=str(uuid.uuid4())
     print(account)
     try:
-        account[str(uuid4)]=scratch3.login(request.forms.get('username'),request.forms.get('password'))
+        account[str(uuid4)]=[scratch3.login(request.forms.get('username'),request.forms.get('password')),{"name":request.forms.get('username'),"password":request.forms.get('password')}]
         return f"<h2>キーを生成しました</h2>{uuid4}"#""""<meta http-equiv="refresh" content="0;URL=/cloud">"""
     except:
         return """<h1>パスワードが違います<meta http-equiv="refresh" content="3;URL=/">"""
@@ -37,7 +37,7 @@ def cloud_get():
 def cloud_post():
     global account
     try:
-        session = account[request.forms.get('key')]
+        session = account[request.forms.get('key')][0]
         conn = session.connect_cloud(str(request.forms.get('id')))
         conn.set_var(request.forms.get('name'),str(request.forms.get('num')))
         return "変更しました<title>変更完了</title>"
@@ -54,7 +54,7 @@ def requ_1():
 def requ_2(key):
     global account
     try:
-            return str(account[key])
+            return str(account[key][1])
     except:
             aaa={"name":"no user","password":"no password"}
             return str(aaa)
